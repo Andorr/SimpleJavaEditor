@@ -3,13 +3,13 @@ package LogIn;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +25,7 @@ import org.fxmisc.richtext.LineNumberFactory;
 public class AppController implements Initializable {
 
     private Stage primaryStage;
-    private String directory = "C:\\Users\\Eier\\IdeaProjects\\JavaFX_Projects\\src\\LogIn\\files";
+    private String directory;
     private ArrayList<String> tabPaths = new ArrayList<>();
 
     private String curFile;
@@ -43,9 +43,16 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String fileName = "Application.java";
+        File file = new File(fileName);
+        directory = file.getAbsolutePath().substring(0,file.getAbsolutePath().length()-fileName.length()) + "src\\LogIn\\files\\";
+
+        System.out.println(directory);
         initializeFileView();
         compilerTextArea.setText("");
         cm = createContextMenu();
+
+
     }
 
     private void createNewTab(String fileName,String dir){
