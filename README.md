@@ -4,7 +4,7 @@ A simple text-editor for Java-programs. It makes it possible to compile and run 
 ### Installation
 Download the projected...
 ```
-git@github.com:Andorr/SimpleJavaEditor.git
+clone git@github.com:Andorr/SimpleJavaEditor.git
 ``` 
 compile it...
 ```
