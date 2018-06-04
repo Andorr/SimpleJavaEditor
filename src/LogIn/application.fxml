@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #515151;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LogIn.AppController">
+    <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox fx:id="leftVBox" style="-fx-border-color: #444444 transparent transparent transparent;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane minHeight="-Infinity" prefHeight="30.0" prefWidth="249.0">
+                     <children>
+                        <Label layoutY="-1.0" prefHeight="31.0" prefWidth="249.0" text="Project" textFill="WHITE">
+                           <padding>
+                              <Insets left="2.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <TabPane fx:id="tabPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TitledPane animated="false" text="Command Window" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <TextArea fx:id="compilerTextArea" editable="false" prefHeight="167.0" prefWidth="831.0" snapToPixel="false" style="-fx-control-inner-background: #515151;" text="&#10;" />
+                     </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                              <MenuItem mnemonicParsing="false" onAction="#newFile" text="New File..." />
+                              <MenuItem mnemonicParsing="false" onAction="#saveAsFile" text="Save As..." />
+                              <MenuItem mnemonicParsing="false" onAction="#changeRootDirectory" text="Change Root Directory..." />
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <HBox prefHeight="35.0" prefWidth="1080.0" spacing="10.0">
+                     <children>
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newFile" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/FileIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin></Button>
+                        <Button layoutX="15.0" layoutY="15.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newDirectory" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/Folder.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="15.0" layoutY="15.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveFile" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/SaveIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="55.0" layoutY="15.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#tryCompile" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/GearIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="95.0" layoutY="15.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#tryRun" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/PlayIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Region prefHeight="33.0" prefWidth="760.0" HBox.hgrow="ALWAYS" />
+                        <Pane maxWidth="150.0" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #808080; -fx-background-radius: 5;" HBox.hgrow="NEVER">
+                           <HBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label fx:id="mainClassLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="5.0" prefHeight="17.0" prefWidth="142.0" text="No Main Class Selected" textFill="#ffffffc2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <bottom>
+            <Pane prefHeight="24.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="statusLabel" layoutY="-5.0" prefHeight="31.0" prefWidth="1080.0" text="Welcome! Time to code!" textFill="WHITE">
+                     <padding>
+                        <Insets left="2.0" top="2.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Pane>
+         </bottom>
+      </BorderPane>
+   </children>
+
+</AnchorPane>

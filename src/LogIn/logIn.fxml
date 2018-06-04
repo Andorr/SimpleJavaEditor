@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LogIn.LogInController">
+   <children>
+      <ImageView disable="true" fitHeight="445.0" fitWidth="445.0" layoutX="3.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <image>
+            <Image url="@images/logInBg.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="logInPanel" layoutX="26.0" layoutY="26.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: rgba(0,0,0,0.08); -fx-background-insets: 5;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Pane layoutX="98.0" layoutY="46.0" prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: #2F5480; -fx-background-radius: 5px; -fx-border-color: transparent transparent black transparent; -fx-border-width: 1px;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="4.0" text="Log In" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="39.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <TextField fx:id="logIn_UserName" layoutX="73.0" layoutY="136.0" prefHeight="38.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: white; -fx-border-width: 2px; -fx-border-color: black; -fx-border-radius: 1px;" />
+            <PasswordField fx:id="logIn_Password" layoutX="75.0" layoutY="217.0" prefHeight="38.0" prefWidth="250.0" promptText="Password" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: white;" />
+            <Button layoutX="73.0" layoutY="291.0" mnemonicParsing="false" onMouseClicked="#tryLogIn" prefHeight="38.0" prefWidth="250.0" style="-fx-background-color: #2F5480;" text="Log In" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="152.0" layoutY="365.0" onMouseClicked="#togglePanels" prefHeight="21.0" prefWidth="93.0" text="Sign Up" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="logInErrorText" alignment="CENTER" layoutX="89.0" layoutY="337.0" prefHeight="21.0" prefWidth="218.0" text="Invalid password or username" textFill="#ff6969" underline="true" visible="false">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="signUpPanel" layoutX="25.0" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: rgba(0,0,0,0.08); -fx-background-insets: 5;" visible="false">
+         <children>
+            <Pane layoutX="100.0" layoutY="43.0" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: #2F5480; -fx-background-radius: 5px; -fx-border-color: transparent transparent black transparent; -fx-border-width: 1px;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="-3.0" text="Register" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <TextField fx:id="signUp_UserName" layoutX="75.0" layoutY="108.0" prefHeight="38.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: white; -fx-border-width: 2px; -fx-border-color: black; -fx-border-radius: 1px;" />
+            <PasswordField fx:id="signUp_Password" layoutX="76.0" layoutY="179.0" prefHeight="38.0" prefWidth="250.0" promptText="Password" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: white;" />
+            <PasswordField fx:id="signUp_ConfirmPassword" layoutX="75.0" layoutY="250.0" prefHeight="38.0" prefWidth="250.0" promptText="Confirm Password" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: white;" />
+            <Button layoutX="75.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#tryRegister" prefHeight="38.0" prefWidth="250.0" style="-fx-background-color: #2F5480;" text="Sign up" textFill="WHITE" />
+            <Button layoutX="14.0" layoutY="14.0" minHeight="20.0" minWidth="49.0" mnemonicParsing="false" onMouseClicked="#togglePanels" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: #2F5480;" text="Back" textFill="WHITE" />
+            <Label fx:id="signUp_UserNameError" layoutX="98.0" layoutY="146.0" text="User with that name already exists" textFill="#ff6969" underline="true" visible="false" />
+            <Label fx:id="signUp_PasswordError" layoutX="107.0" layoutY="288.0" text="Typed passwords are not equal" textFill="#ff6969" underline="true" visible="false" />
+         </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Pane>
+      <Pane fx:id="loadingPanel" layoutX="25.0" layoutY="26.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: rgba(0,0,0,0.08); -fx-background-insets: 5;" visible="false">
+         <children>
+            <Pane layoutX="129.0" layoutY="117.0" prefHeight="48.0" prefWidth="142.0" style="-fx-background-color: #2F5480; -fx-background-radius: 5px; -fx-border-color: transparent transparent black transparent; -fx-border-width: 1px;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-4.0" layoutY="-5.0" prefHeight="55.0" prefWidth="150.0" text="Loading...." textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <ProgressIndicator layoutX="170.0" layoutY="187.0" prefHeight="55.0" prefWidth="61.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="413.0" layoutY="13.0" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #2F5480; -fx-background-radius: 50%;" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label fx:id="exitButton" layoutX="-4.0" layoutY="-11.0" onMouseClicked="#closeApplication" onMouseEntered="#toggleExitButton" onMouseExited="#toggleExitButton" text="X" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="welcomePanel" layoutX="26.0" layoutY="26.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: rgba(0,0,0,0.08); -fx-background-insets: 5;" visible="false">
+         <children>
+            <Pane layoutX="129.0" layoutY="116.0" prefHeight="48.0" prefWidth="142.0" style="-fx-background-color: #2F5480; -fx-background-radius: 5px; -fx-border-color: transparent transparent black transparent; -fx-border-width: 1px;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-4.0" layoutY="-5.0" prefHeight="55.0" prefWidth="150.0" text="Welcome!" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="82.0" layoutY="181.0" prefHeight="38.0" prefWidth="237.0" text="Your user is now registered!" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="150.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#togglePanels" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #2F5480;" text="Log In" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
