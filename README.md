@@ -14,3 +14,6 @@ and then run the MainClass class.
 ```
 java LogIn/MainClass 
 ``` 
+
+![alt text](https://imgur.com/a/w8ACkWF)
+
