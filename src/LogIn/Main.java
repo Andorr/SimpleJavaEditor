@@ -32,7 +32,7 @@ public class Main extends Application {
         //Implements java-keywords stylesheet
         String style = new URL(Main.class.getResource(STYLESHEET).toString()).toExternalForm();
         root.getStylesheets().add(style);
-        primaryStage.setTitle("And-E-rsTexT");
+        primaryStage.setTitle("SimpleJavaEditor 2018");
         primaryStage.setScene(new Scene(root,1080,720));
         primaryStage.hide();
         primaryStage.initStyle(StageStyle.DECORATED);
