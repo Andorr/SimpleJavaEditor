@@ -10,9 +10,9 @@ compile it...
 ```
 javac *.java 
 ``` 
-and then run the MainClass class.
+and then run the Main class.
 ```
-java LogIn/MainClass 
+java LogIn/Main 
 ``` 
 
 ![alt text](/src/LogIn/images/SimpleJavaEditor.PNG)
