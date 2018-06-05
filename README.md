@@ -10,7 +10,7 @@ compile it...
 ```
 javac *.java 
 ``` 
-and then run the Main class.
+and then run the MainClass class.
 ```
-java LogIn/Main 
+java LogIn/MainClass 
 ``` 

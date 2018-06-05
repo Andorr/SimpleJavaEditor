@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: LogIn.Main
+Class-Path: .
+MainClass-Class: LogIn.Main
 

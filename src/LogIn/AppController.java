@@ -1,5 +1,6 @@
 package LogIn;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -40,6 +41,10 @@ public class AppController implements Initializable {
     public VBox leftVBox;
 
     private ContextMenu cm;
+
+    private Thread runThread;
+    private Process process;
+    private boolean wasTerminated = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -185,11 +190,21 @@ public class AppController implements Initializable {
         //Resetting compiling text and runs
         addCompilingText(null);
         addCompilingText("Running " + directory + "/" + fileName);
-        boolean status = run(fileName,dir);
-        if(status){
-            setStatusText(fileName + " - Compiled & ran successfully! - ");
-            changeMainClass(fileName,dir);
+
+        if(runThread != null && runThread.isAlive()){
+            runThread.interrupt();
         }
+
+        runThread = new Thread(() -> {
+            boolean status = run(fileName,dir);
+            if(status){
+                Platform.runLater(() -> {
+                    setStatusText(fileName + " - Compiled & ran successfully! - ");
+                    changeMainClass(fileName,dir);
+                });
+            }
+        });
+        runThread.start();
     }
 
     private void deleteFile(String fileName,String dir){
@@ -348,6 +363,13 @@ public class AppController implements Initializable {
         setStageTitle(directoryPath);
     }
 
+    public void tryQuitProcess(){
+        Process status = quitProcess();
+        if(status != null){
+            wasTerminated = true;
+        }
+    }
+
     //-------------Helper Functions-----------------
     private void initializeFileView(){
         fileView = new FileView(directory);
@@ -405,12 +427,25 @@ public class AppController implements Initializable {
 
     private boolean run(String fileName,String dir){
         try{
-            Process process = Runtime.getRuntime().exec("java -cp " + dir + "; " + fileName.substring(0,fileName.length()-5));
+            quitProcess();
+            wasTerminated = false;
+
+            process = Runtime.getRuntime().exec("java -cp " + dir + "; " + fileName.substring(0,fileName.length()-5));
+
+            //Print output and errors
             String input = FileController.streamToString(process.getInputStream());
-            addCompilingText(input);
             String error = FileController.streamToString(process.getErrorStream());
-            addCompilingText(error);
-            addCompilingText("Process finished with exit code " + process.exitValue());
+            Platform.runLater(() ->{
+                if(wasTerminated){
+                    addCompilingText("The process was terminated with exit code: " + process.exitValue());
+                    wasTerminated = false;
+                }
+                else{
+                    addCompilingText(input);
+                    addCompilingText(error);
+                    addCompilingText("Process finished with exit code " + process.exitValue());
+                }
+            });
             //return error.equals("");
             return true;
         }
@@ -418,6 +453,13 @@ public class AppController implements Initializable {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private Process quitProcess(){
+        if(process != null && process.isAlive()){
+            return process.destroyForcibly();
+        }
+        return null;
     }
 
     private void addCompilingText(String text){

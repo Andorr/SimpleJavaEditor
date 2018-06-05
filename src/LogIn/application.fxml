@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.SplitPane?>
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #515151;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LogIn.AppController">
     <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -43,12 +44,10 @@
          <center>
             <AnchorPane style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <TabPane fx:id="tabPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <TitledPane animated="false" text="Command Window" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <content>
-                        <TextArea fx:id="compilerTextArea" editable="false" prefHeight="167.0" prefWidth="831.0" snapToPixel="false" style="-fx-control-inner-background: #515151;" text="&#10;" />
-                     </content>
-                  </TitledPane>
+                  <SplitPane dividerPositions="0.75" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <TabPane fx:id="tabPanel" />
+                     <TextArea fx:id="compilerTextArea" editable="false" prefHeight="100" prefWidth="831.0" snapToPixel="false" style="-fx-control-inner-background: #515151;" text="&#10;" />
+                  </SplitPane>
                </children>
             </AnchorPane>
          </center>
@@ -126,6 +125,18 @@
                               <Insets bottom="5.0" />
                            </HBox.margin>
                         </Button>
+                        <Button layoutX="135.0" layoutY="15.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#tryQuitProcess" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/StopIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </Button>
                         <Button layoutX="95.0" layoutY="15.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#tryRun" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #808080;">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -144,7 +155,7 @@
                               <Insets bottom="5.0" right="5.0" />
                            </HBox.margin>
                            <children>
-                              <Label fx:id="mainClassLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="5.0" prefHeight="17.0" prefWidth="142.0" text="No Main Class Selected" textFill="#ffffffc2">
+                              <Label fx:id="mainClassLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="5.0" prefHeight="17.0" prefWidth="142.0" text="No MainClass Class Selected" textFill="#ffffffc2">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

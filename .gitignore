@@ -9,6 +9,8 @@ out
 gen
 .gitignore
 .idea/inspectionProfiles/
-.src/LogInExample
-.src/META-INF
+src/LogIn/files/Exam201X
+src/LogIn/files/Exam2016
+src/LogIn/files/Exam2017
+src/META-INF
 
