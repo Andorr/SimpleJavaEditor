@@ -10,7 +10,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,7 +66,7 @@ public class AppController implements Initializable {
     private void createNewTab(String fileName,String dir){
         Tab newTab = new Tab();
         newTab.setText(fileName);
-        String text = FileController.readTextFromFile(dir + "/" + fileName);
+        String text = FileController.readTextFromFile(dir + "\\" + fileName);
 
         //Sets up a code area
         CodeArea ca = new CodeArea();
@@ -131,7 +134,7 @@ public class AppController implements Initializable {
         if(ca == null){return;}
 
         int tabIndex = tabPanel.getSelectionModel().getSelectedIndex();
-        String path = tabPaths.get(tabIndex) + "/" + fileName;
+        String path = tabPaths.get(tabIndex) + "\\" + fileName;
         String text = ca.getText();
 
         boolean status = FileController.writeTextToFile(path,text);
@@ -414,7 +417,8 @@ public class AppController implements Initializable {
 
     private boolean compile(String dir){
         try{
-            Process process = Runtime.getRuntime().exec("javac " + dir + "\\*.java");
+            String classPath = String.format("-classpath %s/lib/", directory);
+            Process process = Runtime.getRuntime().exec("javac " + dir + "\\*.java " + classPath);
             String error = FileController.streamToString(process.getErrorStream());
             addCompilingText(error + "\nProcess finished with exit code " + process.exitValue());
             return error.equals("");
@@ -430,23 +434,51 @@ public class AppController implements Initializable {
             quitProcess();
             wasTerminated = false;
 
+      /*      ProcessBuilder b = new ProcessBuilder("java", "-cp", dir + "; " + fileName.substring(0, fileName.length()-5));
+            b.redirectError(ProcessBuilder.Redirect);*/
+
+            System.out.println("Hello world :D");
             process = Runtime.getRuntime().exec("java -cp " + dir + "; " + fileName.substring(0,fileName.length()-5));
+            System.out.println("Hello world :D 2");
 
             //Print output and errors
-            String input = FileController.streamToString(process.getInputStream());
-            String error = FileController.streamToString(process.getErrorStream());
-            Platform.runLater(() ->{
-                if(wasTerminated){
-                    addCompilingText("The process was terminated with exit code: " + process.exitValue());
-                    wasTerminated = false;
-                }
-                else{
-                    addCompilingText(input);
-                    addCompilingText(error);
-                    addCompilingText("Process finished with exit code " + process.exitValue());
-                }
+            Thread t = new Thread(() -> {
+                try {
+                    final InputStream stream = process.getInputStream();
+                    final BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(stream)
+                    );
+                    String line = null;
+                    while((line = reader.readLine()) != null) {
+                        final String l = line;
+                        addCompilingText(l);
+                    }
+                    reader.close();
+                } catch(Exception e) {}
+
+                String input = FileController.streamToString(process.getInputStream());
+                String error = FileController.streamToString(process.getErrorStream());
+                Platform.runLater(() ->{
+                    if(wasTerminated){
+                        addCompilingText("The process was terminated with exit code: " + process.exitValue());
+                        wasTerminated = false;
+                    }
+                    else{
+                        if(input != null) {
+                            addCompilingText(input);
+                            addCompilingText("\n");
+                        }
+                        if(error != null) {
+                            addCompilingText(error);
+                            addCompilingText("\n");
+                        }
+
+                        addCompilingText("Process finished with exit code " + process.exitValue());
+                    }
+                });
             });
-            //return error.equals("");
+            t.start();
+
             return true;
         }
         catch (Exception e){
@@ -469,7 +501,7 @@ public class AppController implements Initializable {
         if(text.length() == 0){return;}
         //Appends the texts
         double scrollTop = compilerTextArea.getScrollTop();
-        compilerTextArea.appendText(text + "\n\n");
+        compilerTextArea.appendText(text + "\n");
         compilerTextArea.setScrollTop(scrollTop);
 }
 
@@ -562,7 +594,7 @@ public class AppController implements Initializable {
     }
 
     private void addSOUT(CodeArea ca){
-        System.out.println("Adding Sout");
+
         if(ca.isFocused()){
             String line = ca.getText(ca.getCurrentParagraph());
             if(line.contains("sout")){
@@ -570,7 +602,9 @@ public class AppController implements Initializable {
                     ca.deletePreviousChar();
                 }
 
-                ca.appendText("System.out.println()");
+
+                ca.insertText(ca.getCurrentParagraph(), ca.getCaretColumn(),"System.out.println()");
+                ca.moveTo(ca.getCaretPosition()-1);
             }
         }
     }

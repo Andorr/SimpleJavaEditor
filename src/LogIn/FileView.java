@@ -30,15 +30,15 @@ public class FileView extends TreeView<String> {
         root = new FileItem(directory,path.getFileName().toString());
         root.setGraphic(FOLDER_ICON_PATH);
         this.setRoot(root);
-        updateTree(root);
+        updateTree(root, 0);
     }
 
     public void update(){
         root.getChildren().remove(0,root.getChildren().size());
-        updateTree(root);
+        updateTree(root, 0);
     }
 
-    private void updateTree(FileItem r){
+    private void updateTree(FileItem r, int deep){
         String[] files = FileController.getFiles(r.getFullPath());
         ObservableList<TreeItem<String>> items = r.getChildren();
         if(files == null){ return; }
@@ -48,7 +48,10 @@ public class FileView extends TreeView<String> {
             items.add(item);
             if(FileController.isDirectory(r.getFullPath() + "\\" + files[i])){
                 item.setGraphic(FOLDER_ICON_PATH);
-                updateTree(item);
+
+                if(deep < 2) {
+                    updateTree(item, deep +1);
+                }
             }
             else{
                 item.setGraphic(FILE_ICON_PATH);
@@ -66,7 +69,7 @@ public class FileView extends TreeView<String> {
         Path path = Paths.get(directory);
         root = new FileItem(directory,path.getFileName().toString()); //Sets up a new root
         root.setGraphic(FOLDER_ICON_PATH);
-        updateTree(root);
+        updateTree(root, 0);
         this.setRoot(root);
         this.setVisible(true);
         return true;

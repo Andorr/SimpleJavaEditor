@@ -83,6 +83,10 @@ public class FileController {
         File folder = new File(directory);
         if(!folder.isDirectory()){return null;}
         File[] files = folder.listFiles();
+        if(files == null) {
+            return new String[]{};
+        }
+
         String[] names = new String[files.length];
         for(int i = 0; i < files.length; i++){
             names[i] = files[i].getName();
@@ -153,7 +157,6 @@ public class FileController {
             return (output.length() > 2)? output.substring(0,output.length()-1) : output;
         }
         catch(Exception e){
-            e.printStackTrace();
             return null;
         }
     }
